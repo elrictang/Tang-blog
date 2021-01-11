@@ -5,7 +5,7 @@ categories:
 tags: 
     - docker
     - countly
-date: 2020-04-01 18:54:22
+date: 2019-11-10
 ---
 # 1. 前言
 最近刚接触和熟悉**countly**，对countly中的crashes插件根据需求进行了部分改动和完善，这篇文章主要记录一下windows10中使用docker容器安装和部署countly-server的整个流程，也算是自己的一些简单的总结和思考
@@ -20,12 +20,12 @@ countly是开源的数据分析平台，可以一站式收集、展示和分析�
 ## dokcer安装
 doker现在支持linux、windows、DataCenter、Cloud等诸多平台，在windows环境下安装和其他软件的安装并无二致，只要按照提示一步步完成即可，这是[网盘下载地址&提取码:eumv](https://pan.baidu.com/s/1nkEjaRqP04hHL-8d-nlWPA)，最新版请移步官网
 
-![](./img/docker_today.png)
+![](./img/docker-deploy-countly/docker_today.png)
 
 ## 镜像安装与运行
 counltly-server运行环境需要在linux下，因此需要安装linux镜像，可以事先在[dockerhub](https://hub.docker.com/search/?q=ubuntu&type=image)官网上搜索
 
-![](./img/dockerhub.png)
+![](./img/docker-deploy-countly/dockerhub.png)
 
 本文选择了docker hub中的ubutun镜像,后面不指定版本号默认下载最新版
 > 进入docker的安装目录, 使用docker命令下载ubuntu
@@ -51,7 +51,7 @@ counltly-server运行环境需要在linux下，因此需要安装linux镜像，�
 * 方法二（直接从官网下载解压）：
 >进入到[mongoDB 下载页面](https://www.mongodb.com/download-center/community),切换到【*MongoDB Community Sever*】选择版本、操作系统、安装包格式等，下方会出现下载地址
 
-![](./img/mongodb_download.png)
+![](./img/docker-deploy-countly/mongodb_download.png)
 
 ```
     # 更新
@@ -113,7 +113,7 @@ nodejs安装
 ```
 4. 浏览器访问localhost:6001
 
-![](./img/countly_dashboard.png)
+![](./img/docker-deploy-countly/countly_dashboard.png)
 
 
 本文只是做一个简单的记录方便后续回顾，刚开始些博客之类的文章，不足之处也欢迎大家指正
