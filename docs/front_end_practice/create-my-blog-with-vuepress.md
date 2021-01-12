@@ -105,9 +105,6 @@ themeConfig: {
     }
 }
 ```
-3. 预览
-
-![](./)
 
 ### 时间轴
 1. .vuepress同级目录下增加timeline文件夹，并在其中新增README.md
@@ -135,8 +132,7 @@ date: 2019-11-10
 ---
 ```
 5. 预览
-
-![](./img/create-my-blog-with-vuepress/timeline.webp)
+![](./img/create-my-blog-with-vuepress/timeline.png)
 
 ---
 
@@ -191,7 +187,7 @@ module.exports = {
 ```
 3. 预览
 
-![](./img/create-my-blog-with-vuepress/blog_preview.webp)
+![](./img/create-my-blog-with-vuepress/blog_preview.png)
 
 ## 文档与项目分离
 最后，有些情况下我们可能会考虑文档与项目分离的问题，即vuepress核心配置与自定义组件保持不变，文档目录以及相关配置单独放到一个仓库中。这时可以考虑使用git subModule来管理文档子仓库, git submodule详细使用可参考[此处](https://zhuanlan.zhihu.com/p/87053283)
