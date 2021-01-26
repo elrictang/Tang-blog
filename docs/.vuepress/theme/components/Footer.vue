@@ -1,9 +1,5 @@
 <template>
   <div class="footer-wrapper">
-    <span>
-      <reco-icon icon="reco-theme" />
-      <a target="blank" href="https://vuepress-theme-reco.recoluan.com">{{`vuepress-theme-reco@${version}`}}</a>
-    </span>
     <span v-if="$themeConfig.record">
       <reco-icon icon="reco-beian" />
       <a :href="$themeConfig.recordLink || '#'">{{ $themeConfig.record }}</a>
@@ -32,7 +28,6 @@
 <script>
 import { defineComponent, computed } from '@vue/composition-api'
 import { RecoIcon } from '@vuepress-reco/core/lib/components'
-import { version } from '../package.json'
 export default defineComponent({
   components: { RecoIcon },
   setup (props, ctx) {
@@ -46,7 +41,7 @@ export default defineComponent({
 
       return vc && vc.visitor != false
     })
-    return { version, showAccessNumber }
+    return { showAccessNumber }
   }
 })
 </script>

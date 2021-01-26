@@ -53,10 +53,11 @@ import Navbar from '@theme/components/Navbar'
 import Sidebar from '@theme/components/Sidebar'
 import PersonalInfo from '@theme/components/PersonalInfo'
 import Password from '@theme/components/Password'
+import LoadingPage from '@theme/components/LoadingPage'
 import { setTimeout } from 'timers'
 
 export default defineComponent({
-  components: { Sidebar, Navbar, Password, PersonalInfo },
+  components: { Sidebar, Navbar, Password, PersonalInfo, LoadingPage },
 
   props: {
     sidebar: {
