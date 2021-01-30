@@ -12,7 +12,7 @@
         :alt="$siteTitle">
       <span
         ref="siteName"
-        class="site-name"
+        class="site-name auto-typing"
         v-if="$siteTitle">{{ $siteTitle }}</span>
     </router-link>
 

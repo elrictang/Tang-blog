@@ -1,0 +1,23 @@
+// 自动打字动画
+typing(textCount, duration)
+    font-family: Consolas, Monaco, monospace;
+    overflow hidden
+    border-right .1rem solid black
+    white-space nowrap
+    width: textCount
+    animation writeTyping duration steps(26), caret 1s step-end infinite
+@keyframes caret {
+    from, to {
+        border-color: transparent
+    }
+    50% {
+        border-right-color: black;
+    }
+}
+@keyframes writeTyping {
+    from {
+        width: 0;
+    }
+}
+.auto-typing
+    typing(10ch, 2s)

@@ -5,8 +5,7 @@
         <li v-for="v in 9" :key="v" :class="`line-${v}`" :style="`--line-index: ${v}`"></li>
       </ul>
     </div>
-    <h3 class="title" v-if="$frontmatter.home">{{$site.title || $localeConfig.title}}</h3>
-    <p class="description" v-if="$frontmatter.home">{{$site.description || $localeConfig.description}}</p>
+    <h3 class="title" v-if="$frontmatter.home">{{$site.description || $localeConfig.description}}</h3>
   </div>
 </template>
 
@@ -107,15 +106,6 @@
     box-sizing: border-box;
     padding: 0 10px;
     text-shadow 0 2px 10px rgba(0,0,0,0.2)
-  .description
-    margin auto
-    text-align center
-    color $textColor
-    color var(--text-color)
-    font-size 22px
-    box-sizing: border-box;
-    padding: 0 10px;
-    text-shadow 0 2px 10px rgba(0,0,0,0.2);
   @keyframes pacman-balls
     75%{opacity:0.7;}
     100%{-webkit-transform:translate(-100px,-6.25px);transform:translate(-100px,-6.25px);}
