@@ -21,10 +21,10 @@ jobs:
         npm run build
         cd docs/.vuepress/dist
         git init
-        git add -A
-        git commit -m 'deploy'
         git config --global user.email "1032705963@qq.com"
         git config --global user.name "tangjianfeng"
+        git add -A
+        git commit -m 'deploy'
         git push -f https://github.com/elrictang/elrictang.github.io master
 
       
