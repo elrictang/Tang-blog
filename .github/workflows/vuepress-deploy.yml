@@ -14,6 +14,6 @@ jobs:
         node-version: 14.x
     # deploy to github pages
     - name: vuepress-deploy
-      run: ./deploy.sh
+      run: ../../deploy.sh
 
       
