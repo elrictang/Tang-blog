@@ -14,6 +14,8 @@ jobs:
         node-version: 14.x
     # deploy to github pages
     - name: vuepress-deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm install
         npm run build
@@ -21,6 +23,8 @@ jobs:
         git init
         git add -A
         git commit -m 'deploy'
+        git config --global user.email "1032705963@qq.com"
+        git config --global user.name "tangjianfeng"
         git push -f https://github.com/elrictang/elrictang.github.io master
 
       
