@@ -16,6 +16,7 @@ jobs:
     - name: vuepress-deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPO: github.com/elrictang/elrictang.github.io
       run: |
         npm install
         npm run build
@@ -25,6 +26,6 @@ jobs:
         git config --global user.name "tangjianfeng"
         git add -A
         git commit -m 'deploy'
-        git push -f https://github.com/elrictang/elrictang.github.io master
+        git push -f "https://$GITHUB_TOKEN@$GITHUB_REPO" master:master
 
       
