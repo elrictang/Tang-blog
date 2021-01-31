@@ -6,7 +6,8 @@ tags:
     - hybird
 date: 2021-01-17
 ---
-
+安卓调用js方法常见由两种：loadUrl、evaluateJavascript
+js调用安卓方法常见由三种：addJavascriptInterface（注入）,shouldOverrideUrlLoading 或者 webChromeClient的onJsAlert （拦截）
 ## 安卓调用js方法
 ### 使用loadUrl
 优点：简单方便；缺点：获取回调的值比较麻烦
