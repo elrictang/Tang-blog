@@ -126,6 +126,22 @@ r2.exec(s) // null
 8. 模板字符串
 ES6提出的模板字符串使用``表示，是一种增强版的字符串。可以当作普通字符串使用；可以用来定义多行字符串；也可以在字符串中嵌入变量。
 
+9. 【ES2017】padStart()&padEnd()
+字符串补全长度功能，
+```js
+"x".padStart(5, "ab") // ababx
+"x".padStart(4, "ab") // abax
+"x".padEnd(5, "ab") // xabab
+"x".padEnd(4, "ab") // xaba
+```
+
+10. 【ES2017】trimStart & trimEnd
+```js
+const s = "  abc  ";
+s.trim() // "abc"
+s.trimStart() // "abc   "
+s.trimEnd() // "   abc"
+```
 ### 数值的扩展
 
 1. 二进制和八进制新的表示法
@@ -155,6 +171,47 @@ javascript能够准确表示的整数范围是-2^53 ~ 2^53之间；ES6引入MAX_
 5. Math对象扩展
 Math.trunc()用于去除一个数的整数部分
 Math.sign()用于判断一个数字的整数，参数为正数时返回+1，为负时返回-1，为0时返回0
+
+6.【ES2016】 指数运算符**
+这个运算符属于右结合，多个运算连用时从右侧开始计算。
+```js
+2 ** 3 = 8;
+
+let a = 2;
+a **= 3; //  
+```
+7.【ES2020】BigInt
+JavaScript所有类型的数值都保存为64位的浮点数。其中整数的数值精度只能达到53个二进制位，大于这个范围的数javascript是无法表示的。
+大于2**1024的数会返回infinite。
+```js
+Math.pow(2, 53) + 1 === Math.pow(2, 53); // true
+Math.pow(2, 1024) // Infinity
+```
+
+*BigInt只能用来表示整数，但是它没有任何位数的限制,为了与Number类型区分，需要在整数后面增加后缀n。*
+
+```js
+const a = 2172141653n;
+const b = 15346349309n;
+// BigInt 可以保持精度
+a * b // 33334444555566667777n
+// 普通整数无法保持精度
+Number(a) * Number(b) // 33334444555566670000
+```
+
+*它与普通整数属于两种值。*
+```js
+1n === 1 // false
+```
+*可以使用Boolean、Number、String三个方法将BigInt转为对应类型*
+```js
+!0n // true
+!1n // false
+Boolean(0n) // false
+Boolean(1n) // true
+Number(1n) // 1
+String(1n) // "1"
+```
 ### 数组的扩展
 1. Array.from
 Array.from用于将两类对象转为真正的数组：类数组对象(array-like),如querySelectorAll返回的类数组DOM对象还有arguments函数参数对象；可遍历对象(iterable)，如ES6的Set和Map结构。
@@ -253,36 +310,234 @@ const b3 = ["x3", "y3"];
 这两个方法用于监听（取消监听）数组的变化，指定回调函数。
 
 它们的用法与Object.observe和Object.unobserve方法完全一致，也属于ES7的一部分，请参阅《对象的扩展》一章。唯一的区别是，对象可监听的变化一共有六种，而数组只有四种：add、update、delete、splice（数组的length属性发生变化）。
-
+9. 扩展运算符
+...代表扩展运算符,用于将数组转变为参数序列
+常见用途如下所示
+* 代替函数的apply方法
+```js
+// ES5
+Math.max.apply(null, [10, 5, 15]);
+// ES6
+Math.max(...[10, 5, 15]);
+// 等价于
+Math.max(10, 15, 5);
+```
+* 数组复制
+```js
+// ES5
+const a = [1, 2];
+const b = a.concat();
+// ES6
+const b = [...a];
+```
+* 数组合并
+```js
+// ES5
+const a = [1, 2];
+const b = [3];
+const c = [4, 5];
+const d = a.concat(b, c);
+// ES6
+const d = [...a, ...b, ...c];
+```
+* 和解构赋值生成数组
+```js
+// ES5
+const a = list[0];
+const b = list.slice(1);
+// ES6
+const [a, ...b] = list;
+```
 ### 对象的扩展
+1. 对象的简洁表示法
+ES6允许大括里直接写入变量可以作为属性名和属性值。
+```js
+// 对象属性
+const foo = "bar";
+const bar = { foo };
+
+// 对象方法简写
+const a = {
+    method() {
+        console.log("hello");
+    }
+};
+const a = {
+    methods: function() {
+        console.log("hello");
+    }
+}
+```
+2. 属性名表达式
+ES6允许字面量定义对象时键名使用表达式
+```js
+const a = {
+    ["c" + "v"]: "花泽香菜"
+};
+a.cv // "花泽香菜"
+```
+3. 方法的name属性
+```js
+const a = {
+    say() {
+        console.log("hello");
+    }
+}
+a.say.name // "say"
+```
+4. 属性的可枚举性和遍历
+```js
+const attrName = "foo";
+// 获取对象属性的描述对象
+Object.getOwnPropertyDescriptor(obj, attrName);
+```
+可枚举性（enumerable）是对象当前属性的一种特征描述。当该属性为false表示某些操作下会忽略当前属性。
+> for ... in
+> Object.keys(obj)
+> JSON.stringify(obj)
+> Object.assign(obj);
+
+属性遍历的常见方法
+> for ... in: 遍历对象自身和继承的所有可枚举属性。
+> Object.keys(obj): 返回一个数组，包含对象自身的(不含继承)所有可枚举属性。
+> Object.getOwnPropertyNames(obj)：返回一个数组，包含对象自身（不含继承）的所有可枚举以及不可枚举属性（不含symbol属性）。
+> Object.getOwnPropertySymbols(obj)：返回一个数组，包含对象自身（不含继承）的所有symbol属性的键名。
+> Reflect.ownKeys(obj): 返回一个数组，包含对象自身（不含继承）的所有属性，包括所有可枚举属性和不可枚举属性；也包括所有字符串键名的属性和symbol键名的属性。
+
+5. super关键字
+this关键字总是指向当前函数所在的当前对象；ES6新增了super关键字总是指向当前对象的原型。
+> super关键字表示原型对象时，只能用在对象的方法中。
+```js
+const proto = {
+    foo: "hello"
+};
+
+const obj = {
+    foo: "world",
+    find() {
+        return super.foo
+    }
+}
+
+Object.setPrototypeOf(obj, proto);
+obj.find() // "hello"
+```
+
+6. 【ES2018】对象扩展符
+对象的扩展运算符用于取出对象的所有可枚举属性，可以用于对象拷贝，可以用于对象合并。
+扩展运算符的解构赋值得到对象属于浅拷贝，此外也不能复制继承自原型对象的属性。
+
+7. 【ES2020】链判断运算符
+如果要判断读取一个对象的属性，一般需要先判断这个对象是否存在。当属性层级过深时判断就会更加繁琐。链判断运算符（?.）就是为了解决这个问题的。
+```js
+// ES5
+const list = res && res.data && res.data.list;
+// ES6
+const list = res?.data?.list;
+```
+8. 【ES2020】null判断运算符
+读取对象属性的时候如果我们需要在该属性为undefined或者null的情况下设置默认值，我们一般会使用||或运算。但是当前面的值为0或者false时也会通过或运算直接采用默认值。null运算符（??）就是为了解决这个问题，??的行为和||基本一致，但是只有当运算符左侧的值为null或者undefined的下才会使用右侧的值。
+```js
+// 基础用法
+const a = 1 || "暂无数据" // 1
+const b = 0 || "暂无数据" // "暂无数据"，实际上此类情况下我们是希望返回0
+const c = 0 ?? "暂无数据" // 0
+// null判断运算符可以和链判断运算符连用
+const list = res?.data?.list ?? [];
+```
+
+9. Object.is()
+用于比较两个值是否相等，和===行为基本一致，用于统一javascript中同值相等的判断。==存在类型转换问题，===中NaN不等于自身且+0===-0。
+
+10. Object.assign()【浅拷贝】
+用于对象合并，将源对象自身的所有可枚举属性赋值到目标对象。
+数值和布尔值都会被忽略，只有字符串的包装对象，会产生可枚举属性。
+```js
+const v1 = 'abc';
+const v2 = true;
+const v3 = 10;
+const obj = Object.assign({}, v1, v2, v3);
+console.log(obj); // { "0": "a", "1": "b", "2": "c" }
+```
+
+可用于对象拷贝
+```js
+// 仅拷贝对象自身属性
+function clone(origin) {
+    return Object.assign({}, origin);
+}
+
+// 同时拷贝对象自己以及继承的属性
+function clone(origin) {
+    const originPrototype = Object.getPrototypeOf(origin);
+    return Object.assign(Object.create(originPrototype), origin);
+}
+```
 
 ### 函数的扩展
 
-1. 箭头函数
+1. 函数参数的默认值
+```js
+// ES5
+function (x, y) {
+    y = y || 0;
+    console.log(x, y);
+}
+// ES6
+function(x, y = 0) {
+    console.log(x, y);
+}
+```
+2. rest参数
+ES6引入了rest参数（形式为...变量名）用于获取函数多余的参数，这样就可以替代argument。rest只能作为函数的最后一个参数
+```js
+// argument
+function sortNumbers() {
+    return Array.prototype.slice.call(arguments).sort();
+}
+// ES6
+function sortNumber(...rest) {
+    return rest.sort();
+}
+```
+3. 严格模式
+ES2016规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错。
 
-### Set & Map
+4. name属性
+返回函数的函数名。ES5中匿名函数复制给变量，该变量name属性为空，ES6则返回函数名；对于具名函数ES5、ES6都是直接返回函数名。
 
-### Iterator & for...of
+5. 箭头模式
+作用：简化函数
+```js
+// 返回一个对象
+let getTempItem = id => ({ id: id, name: "Temp" });
+```
+6. 尾调用优化
 
-### Generator函数
+7. 【ES2017】函数参数的尾逗号
 
-### Promise对象
+8. 【ES2019】Function.prototype.toString()
+以前返回原始代码时会省略注释，修改后要求和原始代码保持完全一致。
 
-### Class & Module
+9. 【ES2019】允许try...catch中catch省略参数
+```js
+// ES5
+try {
 
+} catch(e) {
+    console.log(e);
+}
 
-## ES7
+// ES6 参数可省略
+try {
 
-###
+} catch {
 
-### Array.proptotype.includes
+}
+```
 
-### Exponentiation Operator
+### Symbol
 
-## ES8
+### Proxy
 
-### padStart/padEnd
-
-### Object.values()
-
-### Object.entries()
+### Reflect
