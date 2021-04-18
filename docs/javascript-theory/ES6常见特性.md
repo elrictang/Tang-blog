@@ -537,7 +537,29 @@ try {
 ```
 
 ### Symbol
+ES5中对象的属性名都是字符串，容易出现属性命名冲突的问题，ES6中引入了一种新的原始数据类型symbol，它代表这独一无二的值。他是js
+的第七种数据类型（前六中分别是String、Number、Boolean、Undefined、null、Object）
+```js
+const a = symbol();
+const b = symbol();
+a === b // false
+```
+> 对于一个对象由多个模块组成的情况下，用symbol作为属性名会十分合适，可以防止键名被覆盖。
 
+symbol.for()会登记在全局环境中供搜索，而symbol()则不会。
+```js
+symbol.for("bar") === symbol.for("bar"); // true
+symbol("bar") !== symbol("bar"); // true
+```
 ### Proxy
 
+proxy就是用于修改对象某些操作的默认行为，相当于在对象外层增加一层代理，当对象被外界访问时会被该代理拦截并执行自定义的逻辑。
+
+proxy支持的拦截操作如下：
+get()、set()、has()、deleteProperty()、ownKeys()、getOwnPropertyDescriptor()、defineProperty()、getPropertyOf()、setProperty()、apply()、constructor()、preventExtensions()、isExtensible()
+
 ### Reflect
+
+Reflect和Proxy一样也是ES6为了操作对象而引入的API
+1. 将Object上一些属于语言内的方法放到Reflect对象上
+2. 修复以前Object一些方法返回值异常的情况
