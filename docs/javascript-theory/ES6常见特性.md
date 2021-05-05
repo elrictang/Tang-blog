@@ -490,6 +490,8 @@ function(x, y = 0) {
 ```
 2. rest参数
 ES6引入了rest参数（形式为...变量名）用于获取函数多余的参数，这样就可以替代argument。rest只能作为函数的最后一个参数
+The rest parameter syntax allows a function to accept an indefinite number of arguments as an array, providing a way to represent variadic functions in JavaScript.
+rest参数语法允许函数可以接收一个由未知长度的变量序列组成的数组作为参数，提供了一种可以在js中代表可变函数的一种方式
 ```js
 // argument
 function sortNumbers() {
